@@ -1,11 +1,11 @@
 import { Box, Text } from '@components/theme';
 import React, { useCallback } from 'react'
-import { StyleSheet, View, Animated, TouchableOpacity } from 'react-native';
-import { Feather as Icon } from '@expo/vector-icons';
+import { StyleSheet, View, Animated } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SEARCH_BAR_HEIGHT } from './SearchBar';
-import { COVER_ACTUAL_HEIGHT } from './AlbumCover';
+import { COVER_ACTUAL_HEIGHT as COVER_HEIGHT } from './AlbumCover';
 import { useNavigation } from '@react-navigation/native';
+import { RounedIconButton } from '@components/common';
 
 const AText = Animated.createAnimatedComponent(Text);
 export const HEADER_HEIGHT = 50;
@@ -17,20 +17,22 @@ export type HeaderProps = {
 const Header = ({ title, y }: HeaderProps) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const searchBarHeight = HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT;
 
   const bgOpacity = y.interpolate({
-    inputRange: [HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT / 2, HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT],
+    inputRange: [searchBarHeight + COVER_HEIGHT / 2, searchBarHeight + COVER_HEIGHT],
     outputRange: [0, 1]
   });
 
   const textOpacity = y.interpolate({
-    inputRange: [HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT / 2, HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT],
+    inputRange: [searchBarHeight + COVER_HEIGHT / 2, searchBarHeight + COVER_HEIGHT],
     outputRange: [0, 1]
   });
 
   const textTranslateY = y.interpolate({
-    inputRange: [HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT / 2, HEADER_HEIGHT + insets.top + SEARCH_BAR_HEIGHT + COVER_ACTUAL_HEIGHT],
-    outputRange: [10, 0]
+    inputRange: [searchBarHeight + COVER_HEIGHT / 2, searchBarHeight + COVER_HEIGHT],
+    outputRange: [10, 0],
+    extrapolateRight: 'clamp'
   });
 
   const goBack = useCallback(() => {
@@ -50,11 +52,12 @@ const Header = ({ title, y }: HeaderProps) => {
         opacity: bgOpacity
       }]} />
       <Box style={styles.container}>
-        <TouchableOpacity onPress={goBack}>
-          <Text variant="header">
-            <Icon name='chevron-left' size={24} />
-          </Text>
-        </TouchableOpacity>
+        <RounedIconButton
+          name='chevron-left'
+          color='white'
+          size={30}
+          onPress={goBack}
+        />
         <Box flex={1} marginHorizontal='m'>
           <AText
             variant='itemTitle'

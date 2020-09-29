@@ -1,7 +1,7 @@
 import { Box, Text } from '@components/theme'
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { RounedIconButton } from '@components/common';
 
 export type ListHeaderProps = {
   isSingle?: boolean
@@ -17,12 +17,19 @@ const ListHeader = ({ isSingle }: ListHeaderProps) => {
       <Box
         flexDirection='row'
       >
-        <Text variant='header' marginRight='m'>
-          <MaterialIcons name='favorite-border' size={24} />
-        </Text>
-        <Text variant='header'>
-          <Entypo name='dots-three-horizontal' size={24} />
-        </Text>
+        <RounedIconButton
+          name='heart-outlined'
+          size={34}
+          color='white'
+          containerStyle={{ marginRight: 'm' }}
+          onPress={() => { }}
+        />
+        <RounedIconButton
+          name='dots-three-horizontal'
+          size={34}
+          color='white'
+          onPress={() => { }}
+        />
       </Box>
     </Box>
   )

@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, TouchableWithoutFeedback, TouchableOpacity, Animated, Dimensions } from 'react-native';
 import { Box, Text } from '@components/theme';
 import { Octicons as Icon } from '@expo/vector-icons';
+import { RounedIcon } from '@components/common';
 
 const { height } = Dimensions.get('window');
 export const SEARCH_BAR_HEIGHT = 40;
@@ -48,10 +49,12 @@ const SearchBar = ({ y, headerHeight }: SearchProps) => {
             marginRight='s'
             borderRadius='xs'
           >
-            <Text variant='body' marginRight='s'>
-              <Icon name='search' />
-            </Text>
-            <Text variant='body' fontWeight='bold'>
+            <RounedIcon
+              name='magnifying-glass'
+              size={24}
+              color='white'
+            />
+            <Text variant='body' fontWeight='bold' marginLeft='s'>
               Find in playlist
           </Text>
           </Box>

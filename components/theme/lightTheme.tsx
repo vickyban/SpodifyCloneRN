@@ -16,13 +16,15 @@ const palette = {
 
 const theme = createTheme({
   colors: {
+    brandPrimary: palette.greenPrimary,
+    transparent: 'transparent',
     black: palette.black,
     white: palette.white,
     mainBackground: palette.white,
     mainForeground: palette.black,
     cardPrimaryBackground: palette.purplePrimary,
     buttonPrimaryBackground: palette.purplePrimary,
-    grey30: 'rgba(255,255,255,0.3)'
+    grey30: 'rgba(255,255,255,0.2)'
   },
   spacing: {
     s: 8,
