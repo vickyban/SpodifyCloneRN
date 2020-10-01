@@ -1,6 +1,6 @@
 import { createBox, createText, createTheme } from '@shopify/restyle'
 
-const palette = {
+export const palette = {
   purpleLight: '#8C6FF7',
   purplePrimary: '#5A31F4',
   purpleDark: '#3F22AB',
@@ -11,6 +11,8 @@ const palette = {
 
   black: '#0B0B0B',
   white: '#F0F2F3',
+
+  grey: '#F3F7F0'
 };
 
 
@@ -24,9 +26,12 @@ const theme = createTheme({
     mainForeground: palette.black,
     cardPrimaryBackground: palette.purplePrimary,
     buttonPrimaryBackground: palette.purplePrimary,
-    grey30: 'rgba(255,255,255,0.2)'
+    grey: palette.grey,
+    grey30: 'rgba(255,255,255,0.2)',
+    textColor: palette.white
   },
   spacing: {
+    xs: 4,
     s: 8,
     m: 16,
     l: 24,
@@ -50,29 +55,29 @@ const theme = createTheme({
       fontWeight: 'bold',
       fontSize: 34,
       lineHeight: 42.5,
-      color: 'black',
+      color: 'textColor',
     },
     subheader: {
       fontWeight: '600',
       fontSize: 28,
       lineHeight: 36,
-      color: 'black',
+      color: 'textColor',
     },
     body: {
       fontSize: 16,
       lineHeight: 24,
-      color: 'black',
+      color: 'textColor',
     },
     itemTitle: {
       fontSize: 16,
       fontWeight: '600',
       lineHeight: 24,
-      color: 'black',
+      color: 'textColor',
     },
     itemSubTitle: {
       fontSize: 12,
       lineHeight: 16,
-      color: 'black',
+      color: 'textColor',
     }
   },
 });

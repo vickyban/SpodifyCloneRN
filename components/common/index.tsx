@@ -1,2 +1,3 @@
-export { default as RounedIcon } from './RoundIcon';
-export { default as RounedIconButton } from './RoundedIconButton';
+export { default as RoundedIcon } from './RoundIcon';
+export { default as RoundedIconButton } from './RoundedIconButton';
+export { default as LikeButton } from './LikeButton';

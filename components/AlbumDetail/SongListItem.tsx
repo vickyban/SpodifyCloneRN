@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 import { Song } from 'types';
 import { Box, Text } from '@components/theme';
 import { Entypo as Icon } from '@expo/vector-icons';
+import { RoundedIconButton } from '@components/common';
+import { useNavigation } from '@react-navigation/native';
 
 export type SongListItemProps = {
   song: Song
 }
 
 const SongListItem = ({ song }: SongListItemProps) => {
+  const navigation = useNavigation();
+  const onMore = useCallback(() => {
+    navigation.navigate('SongDetail', { song })
+  }, [navigation, song]);
+
   return (
     <Box
       flexDirection='row'
@@ -39,12 +46,12 @@ const SongListItem = ({ song }: SongListItemProps) => {
           {song.artist}
         </Text>
       </Box>
-      <Box>
-        <Icon
-          name='dots-three-horizontal'
-          size={30}
-        />
-      </Box>
+      <RoundedIconButton
+        onPress={onMore}
+        color='textColor'
+        size={30}
+        name='dots-three-horizontal'
+      />
     </Box >
   )
 }

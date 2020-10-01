@@ -1,12 +1,15 @@
 import { Ionicons, Entypo, EvilIcons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '@screens/HomeScreen';
-import AlbumScreen from '@screens/AlbumScreen';
+import AlbumScreen from '@screens/homeStack/AlbumScreen';
+import SearchAlbumSongScreen from '@screens/homeStack/SearchAlbumSongScreen';
+import SongDetailScreen from '@screens/homeStack/SongDetailScreen';
+import AllGenreScreen from '@screens/searchStack/AllGenreScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -16,23 +19,23 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
         name="Home"
-        component={TabOneNavigator}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => <Entypo name="home" color={color} size={30} style={{ marginBottom: -3 }} />,
         }}
       />
-      {/* <BottomTab.Screen
+      <BottomTab.Screen
         name="Search"
-        component={TabOneNavigator}
+        component={SearchNavigator}
         options={{
           tabBarIcon: ({ color }) => <EvilIcons name="search" color={color} size={30} style={{ marginBottom: -3 }} />,
         }}
       />
-      <BottomTab.Screen
+      {/* <BottomTab.Screen
         name="Your Library"
         component={TabOneNavigator}
         options={{
@@ -52,17 +55,17 @@ export default function BottomTabNavigator() {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<TabOneParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
+    <HomeStack.Navigator>
+      <HomeStack.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{ headerTitle: 'Tab One Title' }}
       />
-      <TabOneStack.Screen
+      <HomeStack.Screen
         name="AlbumDetail"
         component={AlbumScreen}
 
@@ -72,20 +75,45 @@ function TabOneNavigator() {
           // headerTitle: 'Album'
         }}
       />
-    </TabOneStack.Navigator>
+      <HomeStack.Screen
+        name="SearchAlbumSong"
+        component={SearchAlbumSongScreen}
+        options={{
+          gestureEnabled: false,
+          headerShown: false,
+          cardStyleInterpolator: ({ current }) => ({
+            cardStyle: {
+              opacity: current.progress
+            }
+          })
+        }}
+      />
+      <HomeStack.Screen
+        name="SongDetail"
+        component={SongDetailScreen}
+        options={{
+          headerShown: false,
+          gestureEnabled: false,
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          cardStyle: {
+            backgroundColor: 'transparent'
+          }
+        }}
+      />
+    </HomeStack.Navigator>
   );
 }
 
-// const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const SearchStack = createStackNavigator<TabTwoParamList>();
 
-// function TabTwoNavigator() {
-//   return (
-//     <TabTwoStack.Navigator>
-//       <TabTwoStack.Screen
-//         name="TabTwoScreen"
-//         component={AlbumScreen}
-//         options={{ headerTitle: 'Tab Two Title' }}
-//       />
-//     </TabTwoStack.Navigator>
-//   );
-// }
+function SearchNavigator() {
+  return (
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="AllGenre"
+        component={AllGenreScreen}
+        options={{ headerTitle: 'Tab Two Title' }}
+      />
+    </SearchStack.Navigator>
+  );
+}

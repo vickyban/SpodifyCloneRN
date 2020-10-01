@@ -1,7 +1,7 @@
 import { Box, Text } from '@components/theme'
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
-import { RounedIconButton } from '@components/common';
+import { LikeButton, RoundedIconButton } from '@components/common';
 
 export type ListHeaderProps = {
   isSingle?: boolean
@@ -17,14 +17,13 @@ const ListHeader = ({ isSingle }: ListHeaderProps) => {
       <Box
         flexDirection='row'
       >
-        <RounedIconButton
-          name='heart-outlined'
+        <LikeButton
           size={34}
           color='white'
           containerStyle={{ marginRight: 'm' }}
           onPress={() => { }}
         />
-        <RounedIconButton
+        <RoundedIconButton
           name='dots-three-horizontal'
           size={34}
           color='white'

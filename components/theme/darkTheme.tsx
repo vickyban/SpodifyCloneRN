@@ -1,14 +1,12 @@
-import lightTheme, { Theme } from './lightTheme';
+import lightTheme, { Theme, palette } from './lightTheme';
 
+const { colors, ...rest } = lightTheme;
 const darkTheme: Theme = {
-  ...lightTheme,
-  textVariants: Object.entries(lightTheme.textVariants).reduce((acc, [key, value]) => {
-    acc[key] = {
-      ...value,
-      color: 'white'
-    };
-    return acc;
-  }, {})
+  colors: {
+    ...colors,
+    textColor: palette.white
+  },
+  ...rest
 }
 
 export default darkTheme;

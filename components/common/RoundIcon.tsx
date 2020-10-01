@@ -1,9 +1,11 @@
 import { Box, Text, Theme } from '@components/theme';
+import { Icon } from '@expo/vector-icons/build/createIconSet';
 import React, { ComponentProps } from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Entypo as Icon } from '@expo/vector-icons';
+import * as Icons from '@expo/vector-icons';
 
 type RoundIconProps = {
+  IconType?: Icon<string, string>;
   name: string;
   size: number;
   iconRatio?: number;
@@ -13,6 +15,7 @@ type RoundIconProps = {
 }
 
 const RoundIcon = ({
+  IconType = Icons.Entypo,
   name,
   size,
   iconRatio = 0.8,
@@ -38,12 +41,12 @@ const RoundIcon = ({
           height: iconSize
         }}
         color={color}>
-        <Icon name={name} size={iconSize} style={{ textAlign: 'center' }} />
+        <IconType name={name} size={iconSize} style={{ textAlign: 'center' }} />
       </Text>
     </Box>
   )
 }
 
-export default RoundIcon
+export default RoundIcon;
 
 const styles = StyleSheet.create({})

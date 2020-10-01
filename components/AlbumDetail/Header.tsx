@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { SEARCH_BAR_HEIGHT } from './SearchBar';
 import { COVER_ACTUAL_HEIGHT as COVER_HEIGHT } from './AlbumCover';
 import { useNavigation } from '@react-navigation/native';
-import { RounedIconButton } from '@components/common';
+import { RoundedIconButton } from '@components/common';
 
 const AText = Animated.createAnimatedComponent(Text);
 export const HEADER_HEIGHT = 50;
@@ -52,7 +52,7 @@ const Header = ({ title, y }: HeaderProps) => {
         opacity: bgOpacity
       }]} />
       <Box style={styles.container}>
-        <RounedIconButton
+        <RoundedIconButton
           name='chevron-left'
           color='white'
           size={30}

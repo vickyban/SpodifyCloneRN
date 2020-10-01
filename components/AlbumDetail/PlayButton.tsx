@@ -1,4 +1,4 @@
-import { RounedIconButton } from '@components/common'
+import { RoundedIconButton } from '@components/common'
 import { Box } from '@components/theme'
 import React from 'react'
 import { Animated, StyleSheet } from 'react-native'
@@ -33,7 +33,7 @@ const PlayButton = ({ y, headerHeight, positionY }: PlayButtonProps) => {
         right: 0,
         transform: [{ translateY }]
       }}>
-      <RounedIconButton
+      <RoundedIconButton
         size={BUTTON_SIZE}
         iconRatio={0.6}
         color='white'

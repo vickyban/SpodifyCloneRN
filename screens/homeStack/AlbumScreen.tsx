@@ -1,9 +1,9 @@
 import { useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, StyleSheet, View } from 'react-native';
-import albumDetail from '../data/albumDetails';
+import albumDetail from '../../data/albumDetails';
 
-import { AlbumDetail } from '../types';
+import { AlbumDetail } from '../../types';
 import AlbumCover, { COVER_ACTUAL_HEIGHT as COVER_HEIGHT } from '@components/AlbumDetail/AlbumCover';
 import SongListItem from '@components/AlbumDetail/SongListItem';
 import GradientBackground from '@components/AlbumDetail/GradientBackground';
@@ -15,7 +15,7 @@ import PlayButton from '@components/AlbumDetail/PlayButton';
 
 const AFlatList = Animated.createAnimatedComponent(FlatList);
 
-export default function AlbumScreen() {
+export default function AlbumScreen({ navigation }) {
   const { params: { album: albumPreview } } = useRoute();
   const [album, setAlbum] = useState<AlbumDetail | null>(albumDetail);
   const insets = useSafeAreaInsets();
@@ -27,6 +27,10 @@ export default function AlbumScreen() {
   const onScroll = Animated.event([{
     nativeEvent: { contentOffset: { y } }
   }], { useNativeDriver: true });
+
+  const searchSong = useCallback(() => {
+    navigation.navigate('SearchAlbumSong', { songs: album?.songs })
+  }, [album])
 
   useEffect(() => {
     // setAlbum(albumDetail);
@@ -50,6 +54,7 @@ export default function AlbumScreen() {
         scrollEventThrottle={16}
         onScroll={onScroll}
         snapToStart={false}
+        snapToEnd={false}
         snapToOffsets={[0, searchHeight]}
         data={album?.songs}
         renderItem={({ item }) => <SongListItem song={item} />}
@@ -64,7 +69,7 @@ export default function AlbumScreen() {
           </View>
         )}
       />
-      <SearchBar y={y} headerHeight={headerHeight} />
+      <SearchBar y={y} headerHeight={headerHeight} onSeachSong={searchSong} />
       <Header title={albumPreview.artistsHeadline} y={y} />
       <PlayButton
         y={y}
