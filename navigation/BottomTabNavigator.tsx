@@ -15,7 +15,8 @@ import AlbumsByGenreScreen from '@screens/searchStack/AlbumsByGenreScreen';
 import SearchScreen from '@screens/searchStack/SearchScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
-import PlayWidget from '@components/PlayWidget';
+import TabBar from '@components/navigation/BottomTabBar';
+import { PlayerProvider } from '@components/PlayerWidget';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -23,15 +24,21 @@ export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <>
+    <PlayerProvider>
       <BottomTab.Navigator
         initialRouteName="Home"
-        tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+        tabBar={props => <TabBar {...props} />}
+        tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      >
         <BottomTab.Screen
           name="Home"
           component={HomeNavigator}
           options={{
             tabBarIcon: ({ color }) => <Entypo name="home" color={color} size={30} style={{ marginBottom: -3 }} />,
+            tabIcon: {
+              name: 'home',
+              type: Entypo
+            }
           }}
         />
         <BottomTab.Screen
@@ -39,6 +46,10 @@ export default function BottomTabNavigator() {
           component={SearchNavigator}
           options={{
             tabBarIcon: ({ color }) => <EvilIcons name="search" color={color} size={30} style={{ marginBottom: -3 }} />,
+            tabIcon: {
+              name: 'search',
+              type: EvilIcons
+            }
           }}
         />
         {/* <BottomTab.Screen
@@ -56,8 +67,7 @@ export default function BottomTabNavigator() {
         }}
       /> */}
       </BottomTab.Navigator>
-      <PlayWidget />
-    </>
+    </PlayerProvider>
   );
 }
 
