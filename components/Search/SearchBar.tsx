@@ -4,12 +4,12 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Box, Text } from '@components/theme';
 import Animated from 'react-native-reanimated';
-import SearchInput from './SearchInput';
+import SearchInput from '@components/SearchAlbumSong/SearchInput';
 import { useNavigation } from '@react-navigation/native';
 
 const ABox = Animated.createAnimatedComponent(Box);
 
-export const SEARCH_BAR_HEIGHT = 60;
+export const SEARCH_BAR_HEIGHT = 50;
 
 const SearchBar = () => {
   const navigation = useNavigation();
@@ -34,8 +34,8 @@ const SearchBar = () => {
         paddingHorizontal='m'
         paddingVertical='s'
       >
-        <SearchInput />
-        <Box padding='s'>
+        <SearchInput placeholder='Search' />
+        <Box paddingHorizontal='s' >
           <TouchableWithoutFeedback onPress={navigation.goBack}>
             <Text variant='itemTitle'>Cancel</Text>
           </TouchableWithoutFeedback>

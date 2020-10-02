@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     alignSelf: 'center',
-    backgroundColor: 'red',
     marginTop: SPACING,
     shadowColor: "#000",
     shadowOffset: {

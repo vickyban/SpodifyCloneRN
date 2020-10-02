@@ -9,6 +9,21 @@ export const palette = {
   greenPrimary: '#0ECD9D',
   greenDark: '#0A906E',
 
+  electricBlue: '#92F2F0',
+  blueGreen: '#17BEBB',
+  brownBlack: '#2E282A',
+  oldLavender: '#78686E',
+  lavenderBlue: '#C2C5FF',
+  blueJean: '#5CADFF',
+  maxiumBlue: '#64A6BD',
+  orange: '#CD5334',
+  cheese: '#EDB88B',
+  palePink: '#FAD8D6',
+  paradisePink: '#F0386B',
+  rose: '#FF5376',
+  orchidPink: '#F4CAE0',
+  gold: '#E8B641',
+
   black: '#0B0B0B',
   white: '#F0F2F3',
 
@@ -18,6 +33,24 @@ export const palette = {
 
 const theme = createTheme({
   colors: {
+    teaGreen: '#DAEDBD',
+    electricBlue: '#92F2F0',
+    blueGreen: '#17BEBB',
+    brownBlack: '#2E282A',
+    oldLavender: '#78686E',
+    lavenderBlue: '#C2C5FF',
+    blueJean: '#5CADFF',
+    maxiumBlue: '#64A6BD',
+    blurntSienna: '#DE6B48',
+    orange: '#CD5334',
+    cheese: '#EDB88B',
+    palePink: '#FAD8D6',
+    paradisePink: '#F0386B',
+    rose: '#FF5376',
+    melon: '#F4B9B2',
+    orchidPink: '#F4CAE0',
+    gold: '#E8B641',
+
     brandPrimary: palette.greenPrimary,
     transparent: 'transparent',
     black: palette.black,

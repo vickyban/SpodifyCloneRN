@@ -1,3 +1,5 @@
+import { Theme } from "components/theme";
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -17,6 +19,8 @@ export type TabOneParamList = {
 
 export type TabTwoParamList = {
   AllGenre: undefined;
+  AlbumsByGenre: undefined;
+  Search: undefined;
 };
 
 export type Album = {
@@ -36,4 +40,12 @@ export type AlbumDetail = Album & {
   name: string;
   by: string;
   songs: Song[];
+}
+
+export type Category = {
+  id: string;
+  name: string;
+  backgroundColor: keyof Theme['colors'];
+  imageUri: string;
+  subType?: 'playlists' | 'subGenre';
 }

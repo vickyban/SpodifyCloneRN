@@ -9,8 +9,13 @@ import HomeScreen from '@screens/HomeScreen';
 import AlbumScreen from '@screens/homeStack/AlbumScreen';
 import SearchAlbumSongScreen from '@screens/homeStack/SearchAlbumSongScreen';
 import SongDetailScreen from '@screens/homeStack/SongDetailScreen';
+
 import AllGenreScreen from '@screens/searchStack/AllGenreScreen';
+import AlbumsByGenreScreen from '@screens/searchStack/AlbumsByGenreScreen';
+import SearchScreen from '@screens/searchStack/SearchScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+
+import PlayWidget from '@components/PlayWidget';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -18,24 +23,25 @@ export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="Home"
-        component={HomeNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <Entypo name="home" color={color} size={30} style={{ marginBottom: -3 }} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Search"
-        component={SearchNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <EvilIcons name="search" color={color} size={30} style={{ marginBottom: -3 }} />,
-        }}
-      />
-      {/* <BottomTab.Screen
+    <>
+      <BottomTab.Navigator
+        initialRouteName="Home"
+        tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+        <BottomTab.Screen
+          name="Home"
+          component={HomeNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <Entypo name="home" color={color} size={30} style={{ marginBottom: -3 }} />,
+          }}
+        />
+        <BottomTab.Screen
+          name="Search"
+          component={SearchNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <EvilIcons name="search" color={color} size={30} style={{ marginBottom: -3 }} />,
+          }}
+        />
+        {/* <BottomTab.Screen
         name="Your Library"
         component={TabOneNavigator}
         options={{
@@ -49,7 +55,9 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <FontAwesome5 name="spotify" color={color} size={30} style={{ marginBottom: -3 }} />,
         }}
       /> */}
-    </BottomTab.Navigator>
+      </BottomTab.Navigator>
+      <PlayWidget />
+    </>
   );
 }
 
@@ -112,7 +120,25 @@ function SearchNavigator() {
       <SearchStack.Screen
         name="AllGenre"
         component={AllGenreScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerShown: false }}
+      />
+      <SearchStack.Screen
+        name="AlbumsByGenre"
+        component={AlbumsByGenreScreen}
+        options={{ headerShown: false }}
+      />
+      <SearchStack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          gestureEnabled: false,
+          headerShown: false,
+          cardStyleInterpolator: ({ current }) => ({
+            cardStyle: {
+              opacity: current.progress
+            }
+          })
+        }}
       />
     </SearchStack.Navigator>
   );

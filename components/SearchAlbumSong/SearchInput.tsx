@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { ComponentProps, useCallback, useEffect, useRef } from 'react'
 import { StyleSheet, View, TextInput as RNTextInput } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Box, Theme } from '@components/theme';
@@ -10,9 +10,11 @@ import Animated from 'react-native-reanimated';
 
 const ABox = Animated.createAnimatedComponent(Box);
 
-export const SEARCH_BAR_HEIGHT = 60;
+type SearchInputProps = ComponentProps<typeof RNTextInput> & {
 
-const TextInput = () => {
+}
+
+const SearchInput = (props: SearchInputProps) => {
   const input = useRef(null);
   const insets = useSafeAreaInsets();
   const theme = useTheme<Theme>();
@@ -52,6 +54,7 @@ const TextInput = () => {
       />
       <RNTextInput
         ref={input}
+        {...props}
         onChangeText={onChangeText}
         style={[styles.textInput, {
           fontSize: 16,
@@ -73,7 +76,7 @@ const TextInput = () => {
   )
 }
 
-export default TextInput
+export default SearchInput
 
 const styles = StyleSheet.create({
   textInput: {
