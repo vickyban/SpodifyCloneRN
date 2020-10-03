@@ -1,9 +1,17 @@
 import { useContext } from 'react';
-import PlayerContext from './Context';
+import { PlayerContext, PlayerActionContext } from './Context';
 
 const usePlayerWidget = () => {
-  const context = useContext(PlayerContext);
-  return context;
+  const state = useContext(PlayerContext);
+  const actions = useContext(PlayerActionContext);
+  return {
+    ...state,
+    ...actions
+  };
 };
+
+export const usePlayerWidgetActions = () => {
+  return useContext(PlayerActionContext);
+}
 
 export default usePlayerWidget;

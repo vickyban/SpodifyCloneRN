@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Song } from 'types';
-import PlayerContext from './Context';
+import { PlayerContext, PlayerActionContext } from './Context';
 
 const PlayerProvider = ({ children }) => {
   const [selectedSong, setSelectedSong] = useState<null | Song>(null);
@@ -10,12 +10,19 @@ const PlayerProvider = ({ children }) => {
     setSelectedSong(song);
   }, [setSelectedSong]);
 
-  const setPlaySong = useCallback((v: boolean) => {
-    setIsPlaying(v);
+  const togglePlay = useCallback(() => {
+    setIsPlaying(v => !v);
   }, [setIsPlaying]);
+
+  useEffect(() => {
+    if (selectedSong === null) return;
+    setIsPlaying(true);
+  }, [selectedSong, setIsPlaying])
   return (
-    <PlayerContext.Provider value={{ selectedSong, selectSong, isPlaying, setPlaySong }}>
-      {children}
+    <PlayerContext.Provider value={{ selectedSong, isPlaying }}>
+      <PlayerActionContext.Provider value={{ selectSong, togglePlay }}>
+        {children}
+      </PlayerActionContext.Provider>
     </PlayerContext.Provider>
   )
 }

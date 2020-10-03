@@ -1,11 +1,18 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { Song } from '../../types';
 
-const PlayerContext = createContext<{
+export const PlayerContext = createContext<{
   selectedSong: null | Song,
   isPlaying: boolean,
-  selectSong: (song: Song) => void,
-  setPlaySong: (v: boolean) => void,
-} | null>(null);
+}>({
+  selectedSong: null,
+  isPlaying: false,
+});
 
-export default PlayerContext;
+
+export const PlayerActionContext = createContext<{
+  selectSong?: (song: Song) => void,
+  togglePlay: () => void,
+}>({
+  togglePlay: () => { }
+});

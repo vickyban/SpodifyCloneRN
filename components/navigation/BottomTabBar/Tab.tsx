@@ -1,18 +1,20 @@
 import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs'
 import { BottomTabDescriptor, BottomTabNavigationHelpers } from '@react-navigation/bottom-tabs/lib/typescript/src/types'
 import { RoundedIcon } from '@components/common'
-import React, { memo } from 'react'
-import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native'
-import { Text } from '@components/theme'
+import React, { memo, useCallback } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Text } from '@components/theme';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 type TabProps = BottomTabBarButtonProps & {
   index: number;
   route: any;
   navigation: BottomTabNavigationHelpers
-  descriptors: any
+  descriptors: any;
+  isFocused: boolean;
 }
 
-const Tab = ({ descriptors, route }: TabProps) => {
+const Tab = ({ descriptors, route, navigation, isFocused }: TabProps) => {
   const { options } = descriptors[route.key];
   const tabIcon = options.tabIcon;
 
@@ -22,9 +24,22 @@ const Tab = ({ descriptors, route }: TabProps) => {
       : options.title !== undefined
         ? options.title
         : route.name;
+
+  const onPress = useCallback(() => {
+    const event = navigation.emit({
+      type: 'tabPress',
+      target: route.key,
+      canPreventDefault: true,
+    });
+
+    if (!isFocused && !event.defaultPrevented) {
+      navigation.navigate(route.name);
+    }
+  }, [navigation, isFocused]);
+
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <BorderlessButton onPress={onPress}>
         <RoundedIcon
           name={tabIcon.name}
           IconType={tabIcon.type}
@@ -32,8 +47,8 @@ const Tab = ({ descriptors, route }: TabProps) => {
           color='white'
         />
         <Text variant='itemSubTitle' textAlign='center'>{label}</Text>
-      </View>
-    </TouchableWithoutFeedback>
+      </BorderlessButton>
+    </View>
   )
 }
 

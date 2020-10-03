@@ -1,7 +1,9 @@
-import { RoundedIconButton } from '@components/common'
 import { Box } from '@components/theme'
 import React from 'react'
-import { Animated, StyleSheet } from 'react-native'
+import { Animated, StyleSheet } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import WidgetPlayerButton from '@components/PlayerWidget/PlayButton';
+import { usePlayerWidget } from '@components/PlayerWidget';
 
 
 const ABox = Animated.createAnimatedComponent(Box);
@@ -14,9 +16,9 @@ type PlayButtonProps = {
 
 export const BUTTON_SIZE = 50;
 const PlayButton = ({ y, headerHeight, positionY }: PlayButtonProps) => {
+  const { isPlaying, togglePlay } = usePlayerWidget();
   const minY = BUTTON_SIZE / 2 + headerHeight;
   const maxOffset = positionY - minY;
-
 
   const translateY = y.interpolate({
     inputRange: [0, maxOffset],
@@ -33,14 +35,23 @@ const PlayButton = ({ y, headerHeight, positionY }: PlayButtonProps) => {
         right: 0,
         transform: [{ translateY }]
       }}>
-      <RoundedIconButton
-        size={BUTTON_SIZE}
-        iconRatio={0.6}
-        color='white'
-        backgroundColor='brandPrimary'
-        name='controller-play'
-        onPress={() => { }}
-
+      <WidgetPlayerButton
+        isPlaying={isPlaying}
+        togglePlay={togglePlay}
+        playIcon={{
+          size: BUTTON_SIZE,
+          name: 'play-arrow',
+          IconType: MaterialIcons,
+          color: 'white',
+          backgroundColor: 'brandPrimary'
+        }}
+        pauseIcon={{
+          size: BUTTON_SIZE,
+          name: 'pause',
+          IconType: MaterialIcons,
+          color: 'white',
+          backgroundColor: 'brandPrimary'
+        }}
       />
     </ABox>
   )
