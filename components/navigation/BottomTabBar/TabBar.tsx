@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import Tab from './Tab';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const TAB_BAR_HEIGHT = 60;
+export const TAB_BAR_HEIGHT = 50;
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets();

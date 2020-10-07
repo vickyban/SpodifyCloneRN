@@ -1,5 +1,5 @@
 import { Box, Text } from '@components/theme'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Dimensions, Image } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -7,12 +7,17 @@ import usePlayerWidget from './hook';
 import PlayButton from './PlayButton';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { RoundedIcon } from '@components/common';
+import ProgressBar from './ProgressBar';
 
 const { width, height } = Dimensions.get('window');
 
 const FullPlayer = () => {
   const insets = useSafeAreaInsets();
   const { selectedSong, isPlaying, togglePlay } = usePlayerWidget();
+  const [curTime, setCurTime] = useState(0);
+  const [time, setTime] = useState(0);
+
+
 
   if (selectedSong == null) return null;
   return (
@@ -40,6 +45,18 @@ const FullPlayer = () => {
       <Box paddingHorizontal='m' marginTop='m'>
         <Text variant='subheader' >{selectedSong.title}</Text>
         <Text variant='body'>{selectedSong.artist}</Text>
+      </Box>
+      <Box
+        marginHorizontal='m' marginVertical='m'>
+        <ProgressBar
+          tabHeight={6}
+          max={3.40}
+          value={curTime}
+          onSlidingEnd={setCurTime}
+          onSliding={setTime}
+          enableSlider
+        />
+        <Text variant='body' marginTop='s'>{time.toFixed(2)}</Text>
       </Box>
       <Box flexDirection='row' alignItems='center' justifyContent='space-evenly'>
         <RoundedIcon
